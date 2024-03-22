@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Course Adviser</title>
+    <!-- swiper css link  -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+   <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+
+   <link rel="stylesheet" href="styles.css"> <!-- Link your CSS file here -->
+    
+</head>
+
+<!-- header section starts  -->
+
+<header class="header">
+
+    <section class="flex">
+ 
+       <a href="#home" class="logo">Edu.Adviser</a>
+ 
+       <nav class="navbar">
+          <a href="#home">home</a>
+          <a href="#about">Course Recommendations</a>
+          <a href="#academic-progress">academic-progress</a>
+          <a href="#grade-prediction">grade-prediction</a>
+       </nav>
+ 
+       <div id="menu-btn" class="fas fa-bars"></div>
+ 
+    </section>
+ 
+ </header>
+ 
+ <!-- header section ends -->
+ 
+
+ <!-- home section starts  -->
+ 
+ <section class="home" id="home">
+ 
+    <div class="row">
+ 
+       <div class="content">
+          <h3><span>Welcome to Academic Course Adviser</span></h3>
+          <a href="#contact" class="btn">contact us</a>
+       </div>
+ 
+       <div class="image">
+          <img src="images/homg-img.svg" alt="">
+       </div>
+ 
+    </div>
+ 
+ </section>
+ 
+ <!-- home section ends -->
+ 
+
+
+
+
+       
+    <!-- Course Recommendations Section -->
+   
+    <section class="about" id="about">
+
+        <div class="row">
+     
+           <div class="image">
+              <img src="images/about-img.svg" alt="">
+           </div>
+     
+           <div class="content">
+              <h2>Course Recommendations</h2>
+              <form>
+                 <label for="interests">Enter your interests:</label>
+                 <input type="text" id="interests" name="interests" placeholder="e.g., Computer Science">
+                 <button type="button" id="generateBtn">Generate Recommendations</button>
+             </form>
+             <div id="recommendationResults">
+                <!-- Recommendations will be displayed here -->
+            </div>
+              <p>Course Are recommended for only First and Second year students</p>
+             
+           </div>
+     
+        </div>
+     
+     </section>
+<!-- js code for the  Course Recommendations Section -->
+     <script>
+        const generateBtn = document.getElementById('generateBtn');
+        generateBtn.addEventListener('click', function() {
+            const recommendations = [
+                { code: 'COSC1046NE', name: 'Introduction to Computer Science I' },
+                { code: 'COSC1047NE', name: 'Introduction to Computer Science II' },
+                { code: 'COSC2307OE', name: 'Database Programming' },
+                { code: 'COSC1701AE', name: 'Computer Applications' },
+                { code: 'MATH1056NE', name: 'Discrete Mathematics I' },
+                { code: 'COSC2956RE', name: 'Internet Tools' },
+                { code: 'ITEC2706RE', name: 'Mobile Technology: Design and Use' },
+                { code: 'COSC2006VE', name: 'Data Structures I' },
+                { code: 'COSC2007PE', name: 'Data Structures II' },
+                { code: 'MATH2056ME', name: 'Discrete Mathematics II' },
+                { code: 'COSC2406SE', name: 'Assembly Language Programming' },
+                { code: 'COSC2996AE', name: 'Systems Analysis and Analytics for Project Management' },
+                { code: 'MATH1057ME', name: 'Linear Algebra I' }
+            ];
+
+            displayRecommendations(recommendations);
+        });
+
+        function displayRecommendations(recommendations) {
+            const recommendationResults = document.getElementById('recommendationResults');
+            recommendationResults.innerHTML = '';
+
+            if (recommendations.length === 0) {
+                recommendationResults.textContent = 'No recommendations found.';
+            } else {
+                recommendations.forEach(course => {
+                    const courseElement = document.createElement('div');
+                    courseElement.textContent = `${course.code} - ${course.name}`;
+                    recommendationResults.appendChild(courseElement);
+                });
+            }
+        }
+    </script>
+
+
+ <!-- Academic Progress Tracking Section -->
+ <section id="academic-progress">
+    <div class="row">
+     
+        <div class="image">
+           <img src="images/course-5.svg" alt="">
+        </div>
+    <h2>Academic Progress Tracking</h2>
+    <div id="progress-form">
+        <label for="total-courses">Total Courses:</label>
+        <input type="number" id="total-courses" name="total-courses">
+        <label for="completed-courses">Completed Courses:</label>
+        <input type="number" id="completed-courses" name="completed-courses">
+        <label for="total-credits">Total Credits Gained:</label>
+        <input type="number" id="total-credits" name="total-credits">
+        <button id="calculate-progress-btn">Calculate Progress</button>
+    </div>
+    <div id="progress-results" style="display:none;">
+        <p>Courses Left: <span id="courses-left">0</span></p>
+        <p>Overall Percentage: <span id="overall-percentage">0%</span></p>
+    </div>
+</section>
+<!-- jscode Academic Progress Tracking Section -->
+<script>
+document.getElementById("calculate-progress-btn").addEventListener("click", function() {
+    var totalCourses = parseInt(document.getElementById("total-courses").value);
+    var completedCourses = parseInt(document.getElementById("completed-courses").value);
+    var totalCredits = parseInt(document.getElementById("total-credits").value);
+    
+    if (isNaN(totalCourses) || isNaN(completedCourses) || isNaN(totalCredits)) {
+        alert("Please enter valid numbers for all fields.");
+        return;
+    }
+    
+    var coursesLeft = totalCourses - completedCourses;
+    
+    var overallPercentage = 0;
+    for (var i = 1; i <= completedCourses; i++) {
+        var score = parseFloat(prompt("Enter score for Course " + i + ":"));
+        var totalScore = parseFloat(prompt("Enter total score for Course " + i + ":"));
+        
+        if (isNaN(score) || isNaN(totalScore)) {
+            alert("Please enter valid numbers for score and total score.");
+            return;
+        }
+        
+        overallPercentage += (score / totalScore);
+    }
+    
+    overallPercentage = (overallPercentage / completedCourses) * 100;
+
+    document.getElementById("courses-left").textContent = coursesLeft;
+    document.getElementById("overall-percentage").textContent = overallPercentage.toFixed(2) + "%";
+    document.getElementById("progress-results").style.display = "block";
+});
+
+</script>
+
+
+    <!-- Grade Prediction Section -->
+
+    <section id="grade-prediction">
+        <h2>Grade Prediction</h2>
+        <p>Predict your grades based on your performance and course load.</p>
+        <form id="grade-prediction-form">
+            <label for="current-grade">Current Grade:</label>
+            <input type="text" id="current-grade" name="current-grade">
+            <label for="course-load">Course Load:</label>
+            <input type="number" id="course-load" name="course-load">
+            <button type="submit">Predict Grade</button>
+        </form>
+        <div id="predicted-grade">
+            <!-- Predicted grade will be displayed here -->
+        </div>
+    </section>
+    </html><script>
+
+    // js code for the Grade Prediction
+    const gradePredictionForm = document.getElementById('grade-prediction-form');
+    gradePredictionForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+        // Get user input
+        const currentGrade = parseFloat(document.getElementById('current-grade').value);
+        const courseLoad = parseInt(document.getElementById('course-load').value);
+
+        // Validate user input
+        if (isNaN(currentGrade) || isNaN(courseLoad) || currentGrade < 0 || currentGrade > 100 || courseLoad <= 0) {
+            alert('Please enter valid input for current grade and course load.');
+            return;
+        }
+
+        // Assume you have a function to predict grades
+        const predictedGrade = predictGrade(currentGrade, courseLoad);
+
+        // Update interface with predicted grade
+        document.getElementById('predicted-grade').textContent = `Predicted Grade: ${predictedGrade}`;
+    });
+
+    function predictGrade(currentGrade, courseLoad) {
+        // Simulated logic to predict grade based on current grade and course load
+        // This can be replaced with an actual prediction algorithm
+        return currentGrade + courseLoad * 0.1;
+    }
+</script>
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Academic Course Adviser. All rights reserved.</p>
+        <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+    </footer> 
+<!-- Swiper JS link -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Your JavaScript file -->
+<script src="script.js"></script>
+
+</body>
+</html> 
